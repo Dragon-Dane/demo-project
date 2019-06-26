@@ -11,7 +11,7 @@ import javax.validation.Valid;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("employees")
+@RequestMapping("employee")
 @CrossOrigin(origins = "http://localhost:4200")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class EmployeeController {
