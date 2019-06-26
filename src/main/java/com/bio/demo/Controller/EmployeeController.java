@@ -12,6 +12,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("employee")
+@CrossOrigin(origins = "http://localhost:4200")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class EmployeeController {
     private final EmployeeService employeeService;
