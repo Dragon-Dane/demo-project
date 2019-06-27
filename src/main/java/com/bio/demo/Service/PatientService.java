@@ -36,4 +36,9 @@ public class PatientService {
         patientRepository.delete(patient);
         return apiResponseService.sendDeleteResponse("Patient", patient);
     }
+
+    public ResponseObject getPatient(UUID id) {
+        Patient patient = patientRepository.findById(id).orElseThrow(()-> new ServiceExceptionHolder.EntityNotFoundException("Patient", id));
+        return apiResponseService.sendDeleteResponse("Patient", patient);
+    }
 }

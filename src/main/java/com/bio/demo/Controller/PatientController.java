@@ -22,6 +22,10 @@ public class PatientController {
         return patientService.getAllPatient();
     }
 
+    @GetMapping("{id}")
+    public ResponseObject getPatient(@PathVariable UUID id) {
+        return patientService.getPatient(id);
+    }
 
     @PostMapping
     public ResponseObject addPatient(@RequestBody @Valid Patient patient){
