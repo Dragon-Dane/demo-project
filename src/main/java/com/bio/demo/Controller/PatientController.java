@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.text.ParseException;
 import java.util.UUID;
 
 @RestController
@@ -45,5 +46,10 @@ public class PatientController {
     @GetMapping("/report")
     public ResponseObject getReport() {
         return patientService.getReport();
+    }
+
+    @GetMapping("/search")
+    public ResponseObject getFilteredPatient(@RequestParam(name = "startDate")String startDate, @RequestParam(name = "endDate") String endDate) throws ParseException {
+        return patientService.getFilteredPatient(startDate, endDate);
     }
 }

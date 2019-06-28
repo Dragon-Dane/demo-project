@@ -10,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.validation.Valid;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.UUID;
 
 @Service
@@ -34,17 +37,24 @@ public class PatientService {
     }
 
     public ResponseObject deletePatient(UUID id) {
-        Patient patient = patientRepository.findById(id).orElseThrow(()-> new ServiceExceptionHolder.EntityNotFoundException("Patient", id));
+        Patient patient = patientRepository.findById(id).orElseThrow(() -> new ServiceExceptionHolder.EntityNotFoundException("Patient", id));
         patientRepository.delete(patient);
         return apiResponseService.sendDeleteResponse("Patient", patient);
     }
 
     public ResponseObject getPatient(UUID id) {
-        Patient patient = patientRepository.findById(id).orElseThrow(()-> new ServiceExceptionHolder.EntityNotFoundException("Patient", id));
+        Patient patient = patientRepository.findById(id).orElseThrow(() -> new ServiceExceptionHolder.EntityNotFoundException("Patient", id));
         return apiResponseService.sendDeleteResponse("Patient", patient);
     }
 
     public ResponseObject getReport() {
         return apiResponseService.sendListResponse("Visit", reportRepository.findAll());
+    }
+
+    public ResponseObject getFilteredPatient(String startDate, String endDate) throws ParseException {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Date StartDate = format.parse(startDate);
+        Date EndDate = format.parse(endDate);
+        return apiResponseService.sendListResponse("Patient", patientRepository.findAllByPrescriptionDateBetween(StartDate, EndDate));
     }
 }
