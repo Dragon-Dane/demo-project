@@ -55,6 +55,6 @@ public class PatientService {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Date StartDate = format.parse(startDate);
         Date EndDate = format.parse(endDate);
-        return apiResponseService.sendListResponse("Patient", patientRepository.findAllByPrescriptionDateBetween(StartDate, EndDate));
+        return apiResponseService.sendListResponse("Patient", patientRepository.findbyDateRange(StartDate, EndDate));
     }
 }
