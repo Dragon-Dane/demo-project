@@ -41,4 +41,9 @@ public class PatientController {
     public ResponseObject deletePatient(@PathVariable UUID id){
         return patientService.deletePatient(id);
     }
+
+    @GetMapping("/report")
+    public ResponseObject getReport() {
+        return patientService.getReport();
+    }
 }

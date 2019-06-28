@@ -3,6 +3,7 @@ package com.bio.demo.Service;
 import com.bio.demo.DataClass.ResponseObject;
 import com.bio.demo.Execptions.ServiceExceptionHolder;
 import com.bio.demo.Repository.PatientRepository;
+import com.bio.demo.Repository.ReportRepository;
 import com.bio.demo.model.Patient;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import java.util.UUID;
 public class PatientService {
 
     private final PatientRepository patientRepository;
+    private final ReportRepository reportRepository;
     private final ApiResponseService apiResponseService;
 
     public ResponseObject getAllPatient() {
@@ -40,5 +42,9 @@ public class PatientService {
     public ResponseObject getPatient(UUID id) {
         Patient patient = patientRepository.findById(id).orElseThrow(()-> new ServiceExceptionHolder.EntityNotFoundException("Patient", id));
         return apiResponseService.sendDeleteResponse("Patient", patient);
+    }
+
+    public ResponseObject getReport() {
+        return apiResponseService.sendListResponse("Visit", reportRepository.findAll());
     }
 }
